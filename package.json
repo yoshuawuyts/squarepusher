@@ -1,0 +1,19 @@
+{
+  "name": "squarePusher",
+  "version": "0.0.0",
+  "description": "Load a set of elements into a grid",
+  "main": "index.js",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yoshuawuyts/squarePusher"
+  },
+  "author": "Yoshua Wuyts <i@yoshuawuyts.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yoshuawuyts/squarePusher/issues"
+  },
+  "homepage": "https://github.com/yoshuawuyts/squarePusher"
+}
