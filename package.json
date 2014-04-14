@@ -4,7 +4,8 @@
   "description": "Load a set of elements into a grid",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test"
+    "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha --recursive --harmony-generators -R spec",
+    "start": "node --harmony-generators server/index.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,18 @@
   "bugs": {
     "url": "https://github.com/yoshuawuyts/squarePusher/issues"
   },
-  "homepage": "https://github.com/yoshuawuyts/squarePusher"
+  "homepage": "https://github.com/yoshuawuyts/squarePusher",
+  "devDependencies": {
+    "should": "^3.3.0",
+    "mocha": "^1.18.2"
+  },
+  "dependencies": {
+    "koa-response-time": "^1.0.2",
+    "koa-compose": "^2.2.0",
+    "koa-send": "^1.2.3",
+    "koa-logger": "^1.2.0",
+    "koa": "^0.5.4",
+    "envify": "^1.2.1",
+    "react": "^0.10.0"
+  }
 }
