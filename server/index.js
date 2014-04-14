@@ -9,7 +9,7 @@ var compress = require('koa-compress');
 var compose = require('koa-compose');
 var base = require('./base/router');
 var logger = require('koa-logger');
-var send = require('koa-send');
+var serve = require('koa-static');
 var React = require('react');
 var koa = require('koa');
 
@@ -43,8 +43,8 @@ app.use(function *(next) {
   switch (this.subdomains[0]) {
 
     case 'assets':
-      var opts = {root: __dirname + '/../build'};
-      return yield send(this, this.path, opts);
+      var opts = __dirname + '/../build';
+      return yield serve(opts);
       break;
 
     default:
@@ -59,4 +59,4 @@ app.use(function *(next) {
 
 app.listen(PORT);
 console.log('Environment: ' + ENV);
-console.log('Port: ' + PORT);
+console.log('Port: ' + PORT + '\n');

@@ -20,7 +20,6 @@ var app = koa();
 
 module.exports = app;
 
-
 /**
  * Always return files.
  */
