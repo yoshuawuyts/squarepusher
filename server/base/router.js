@@ -5,9 +5,10 @@
  */
 
 var Component = require('../../client/index');
+var markdown = require('./readFile');
 var React = require('react');
 var koa = require('koa');
-
+console.log(markdown)
 /**
  * Initialize 'app'.
  */
@@ -25,5 +26,5 @@ module.exports = app;
  */
 
 app.use(function *(next) {
-  this.body = React.renderComponentToString(Component());
+  this.body = React.renderComponentToString(Component({markdown: markdown}));
 });

@@ -2,6 +2,9 @@
  * Module dependencies
  */
 
+var markdownComponent = require('./modules/markdown');
+var canvasComponent = require('./modules/canvas');
+var tilesComponent = require('./modules/tiles');
 var React = require('react');
 
 /**
@@ -13,6 +16,8 @@ var host = process.env.NODE_ENV == 'production' ? 'mywebsite.com' : 'localhost:'
 
 /**
  * Define React class.
+ *
+ * @props {String} markdown
  */
 
 module.exports = React.createClass({
@@ -27,6 +32,11 @@ module.exports = React.createClass({
         React.DOM.base({href: 'http://assets.' + host},
           React.DOM.link({rel: 'stylesheet', href:'/styles/build.css'})
         )
+      ),
+      React.DOM.body(null, 
+        canvasComponent(),
+        markdownComponent({markdown: this.props.markdown}),
+        tilesComponent()
       )
     )
   }
