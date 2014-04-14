@@ -44,7 +44,12 @@ app.use(function *(next) {
 
     case 'assets':
       var opts = __dirname + '/../build';
-      return yield serve(opts);
+      return yield compose([
+        serve(opts, {defer: true}),
+        function *(next) {
+          if (!this.body) this.status = 404;
+        }
+      ]);
       break;
 
     default:

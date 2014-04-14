@@ -8,7 +8,6 @@ var Component = require('../../client/index');
 var markdown = require('./readFile');
 var React = require('react');
 var koa = require('koa');
-console.log(markdown)
 /**
  * Initialize 'app'.
  */
