@@ -30,6 +30,7 @@ module.exports = React.createClass({
         React.DOM.title(null, 'squarePusher'),
         React.DOM.meta({name: 'viewport', content: 'width=device-width, initial-scale=1'}),
         React.DOM.base({href: 'http://assets.' + host},
+          React.DOM.link({rel: 'shortcut icon', href: '/favicon.ico'}),
           React.DOM.link({rel: 'stylesheet', href:'/styles/build.css'})
         )
       ),
