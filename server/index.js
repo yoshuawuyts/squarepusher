@@ -43,8 +43,7 @@ app.use(function *(next) {
   switch (this.subdomains[0]) {
 
     case 'assets':
-      var opts = __dirname + '/../build';
-      return serve(opts, {defer: true})
+      return yield serve(__dirname+ + '../build');
       break;
 
     default:

@@ -28,14 +28,15 @@ module.exports = React.createClass({
         React.DOM.meta({charSet: 'utf-8'}),
         React.DOM.meta({httpEquiv: 'X-UA-Compatible', content: 'IE=edge'}),
         React.DOM.title(null, 'squarePusher'),
-        React.DOM.meta({name: 'viewport', content: 'width=device-width, initial-scale=1'}),
+        React.DOM.meta({name: 'viewport', content: 'width=device-width, initial-scale=1'})/*,
         React.DOM.base({href: 'http://assets.' + host},
-          React.DOM.link({rel: 'shortcut icon', href: '/favicon.ico'}),
-          React.DOM.link({rel: 'stylesheet', href:'/styles/build.css'})
-        )
+          React.DOM.link({rel: 'stylesheet', href:'/build.css'}),
+          React.DOM.script({language: 'javascript', src:'/index.js'}),
+          React.DOM.link({rel: 'shortcut icon', href: '/favicon.ico'})
+        )*/
       ),
       React.DOM.body(null, 
-        canvasComponent(),
+        canvasComponent({data: this.props.data, grid: this.props.grid}),
         markdownComponent({markdown: this.props.markdown}),
         tilesComponent()
       )

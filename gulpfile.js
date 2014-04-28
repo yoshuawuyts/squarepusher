@@ -19,7 +19,7 @@ gulp.task('styles', function() {
     .src('client/styles/*.css')
     .pipe(myth())
     .pipe(concat('build.css'))
-    .pipe(gulp.dest('build/styles'));
+    .pipe(gulp.dest('build'));
 });
 
 /**
