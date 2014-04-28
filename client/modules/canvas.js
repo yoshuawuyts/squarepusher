@@ -9,7 +9,7 @@ var React = require('react');
 /**
  * Define view
  *
- * @props {Object[]} data
+ * @props {Object[]} tiles
  * @props {Object} grid
  * @return {ReactComponent}
  * @api public
@@ -23,18 +23,31 @@ module.exports = React.createClass({
 
   render: function () {
     var grid = this.props.grid;
-    var data = this.props.data;
+    var tiles = this.props.data;
 
+    // Initialize blank grid.
     grid = this.gridAttr(grid);
+
+    // Add 'grid.add' function.
     grid = this.gridAdd(grid);
-    data = this.dataId(data);
-    data = this.dataSurface(data);
-    data = this.dataRotate(data);
-    data = this.sort(data);
 
-    data = this.fill(data, grid);
+    // Add 'tile.id' property.
+    tiles = this.tilesId(tiles);
 
-    return React.DOM.div(null, data)
+    // Add 'tile.surface' property.
+    tiles = this.tilesSurface(tiles);
+
+    // Add 'tile.horizontal', 'tile.vertical' & 'tile.square'
+    tiles = this.tilesRotate(tiles);
+
+    // Sort tiles.
+    tiles = this.sort(tiles);
+
+    // Fill grid with tiles.
+    //tiles = this.fill(tiles, grid);
+
+    // Return grid to be rendered.
+    return React.DOM.div(null)
   },
 
   /**
@@ -121,6 +134,69 @@ module.exports = React.createClass({
   },
 
   /**
+   * Add an id to each tile.
+   *
+   * @param {Object[]} tiles
+   * @return {Object[]}
+   * @api private
+   */
+
+  tilesId: function(tiles) {
+    console.log(tiles);
+    tiles.forEach(function(tile, index) {
+      tile.id = index;
+    });
+
+    return tiles;
+  },
+
+  /**
+   * Calculate the surface of each tile.
+   *
+   * @param {Object[]} tiles
+   * @return {Object}
+   * @api private
+   */
+
+  tilesSurface: function(tiles) {
+    tiles.forEach(function(tile) {
+      tile.surface = tile.height * tile.width;
+    });
+
+    return tiles;
+  },
+
+  /**
+   * Set 'tile.horizontal' and 'tile.vertical' functions.
+   * Set 'tile.square' to Boolean.
+   *
+   * @param {Object[]} tiles
+   * @return {Object[]}
+   * @api private
+   */
+
+  tilesRotate: function(tiles) {
+    tiles.forEach(function(tile) {
+      if(tile.height == tile.width) {
+        tile.square = true;
+
+      } else {
+        tile.square = false;
+
+        // normal
+        tile.horizontal = function() {
+          return [tile.height, tile.width]
+        };
+
+        // rotate
+        tile.vertical = function() {
+          return [tile.width, tile.height]
+        };
+      }
+    });
+  },
+
+  /**
    * Sort elements by surface
    *
    * @param {Object[]} tiles
@@ -128,7 +204,22 @@ module.exports = React.createClass({
    * @api private
    */
 
-  sort: function(data) {
+  sort: function(tiles) {
+    tiles.sort(function(a, b) {
+      if(a.surface < b.surface) return -1;
+      if(a.surface > b.surface) return 1;
 
+      // if equal surface, determine order by height.
+      if(a.height < b.height) return -1;
+      if(a.height > b.height) return 1;
+
+      // if equal surface and equal height, determine order by width.
+      if(a.width < b.width) return -1;
+      if(a.width > b.width) return 1;
+
+      return 0;
+    });
+
+    return tiles;
   }
 });
