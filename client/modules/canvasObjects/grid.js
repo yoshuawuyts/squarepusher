@@ -62,24 +62,28 @@ function gridAdd(grid) {
   grid.add = function(tile) {
     var coordinates = {};
     var correct = true;
+    var found = false;
 
-    // read values till a '-1' is found
+    // read values from grid till a '-1' is found
     for(var i = 0, j = grid.height - 1; i < j; i++) {
       for(var k = 0, l = grid.width - 1; k < l; k++) {
         if (grid.attr[i][k] == -1) {
           coordinates.y = i;
           coordinates.x = k;
-          break;
+          found = true;
         }
+        if(found == true) break;
       }
+      if(found == true) break;
     }
+
+    console.log(coordinates);
 
     // check if bounds allow placement
     if ((grid.height - coordinates.y - tile.height) < 0) return false;
     if ((grid.width - coordinates.x - tile.width) < 0) return false;
 
-    // start filling in values
-    //   if runs into another num, return false
+    // start filling in values, if runs into another num, return false
     for(var i = coordinates.y, j = tile.height + i; i < j; i++) {
       for(var k = coordinates.x, l = tile.width + k; k < l; k++) {
         

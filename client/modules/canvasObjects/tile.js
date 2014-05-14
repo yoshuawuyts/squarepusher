@@ -92,7 +92,6 @@ function tilesRotate(tiles) {
  */
 
 function tilesSort(tiles) {
-  console.log(tiles);
   tiles.sort(function(a, b) {
     if(a.surface < b.surface) return -1;
     if(a.surface > b.surface) return 1;

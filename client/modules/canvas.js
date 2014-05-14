@@ -8,6 +8,7 @@ var React = require('react');
 var gridObject = require('./canvasObjects/grid');
 var listObject = require('./canvasObjects/list');
 var tileObject = require('./canvasObjects/tile');
+var iterate = require('./canvasAlgorithms/iterative');
 
 /**
  * Define view
@@ -29,9 +30,10 @@ module.exports = React.createClass({
     var grid = gridObject(this.props.grid);
     var tiles = tileObject(this.props.data);
     var list = listObject(tiles);
-    console.log(list);
+
+    iterate(grid, list);
 
     // Return grid to be rendered.
-    return React.DOM.div(null)
-  },
+    return React.DOM.div(null);
+  }
 });
