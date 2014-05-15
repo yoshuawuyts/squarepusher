@@ -7,12 +7,12 @@
 
 var should = require('should');
 var debug = require('debug');
-var Grid = require('../client/modules/canvasObjects/grid');
-var stubGrid = require('../.database/grid1.json');
-var stubData = require('../.database/data1.json');
-var stubAttr1 = require('./grid/attr1.json');
-var stubAttr2 = require('./grid/attr2.json');
-var stubAttr3 = require('./grid/attr3.json');
+var Grid = require('../../client/modules/canvasObjects/grid');
+var stubGrid = require('../../.database/grid1.json');
+var stubData = require('../../.database/data1.json');
+var stubAttr1 = require('./attr1.json');
+var stubAttr2 = require('./attr2.json');
+var stubAttr3 = require('./attr3.json');
 
 /**
  * Test
