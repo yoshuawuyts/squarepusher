@@ -82,6 +82,7 @@ grid.add = function(tile) {
   // Check if 'tile' fits into the empty space without going outside the grid.
   if ((this.height - coordinates.y - tile.height) < 0) return false;
   if ((this.width - coordinates.x - tile.width) < 0) return false;
+  
   // Fill empty space with 'tile', if it encounters filled space > exit.
   for(var i = coordinates.y, j = tile.height + i; i < j; i++) {
     for(var k = coordinates.x, l = tile.width + k; k < l; k++) {

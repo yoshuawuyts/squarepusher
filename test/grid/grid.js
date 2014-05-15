@@ -65,11 +65,3 @@ describe('#grid()', function () {
     });
   });
 });
-
-describe('list', function () {
-  
-});
-
-describe('tile', function () {
-  
-});
