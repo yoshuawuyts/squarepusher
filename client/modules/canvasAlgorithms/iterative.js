@@ -1,4 +1,10 @@
 /**
+ * Module dependencies
+ */
+
+var debug = require('debug')('sp:iterative');
+
+/**
  * Exports.
  */
 
@@ -16,8 +22,8 @@ module.exports = iterate;
 
 function iterate(grid, list) {
   for(var i = 0, j = list.giveLength(); i <= j; i++) {
-    console.log(j,i);
-    //console.log('tile', list.giveTile(i))
+    debug(j,i);
+    //console('tile', list.giveTile(i))
 
     // if the last option from the loop returns fails, it means all our options
     // are exhausted, thus return false.
@@ -27,9 +33,8 @@ function iterate(grid, list) {
 
     // if option n returns true, call iterate again.
     if(grid.add(list.giveTile(i))) {
-      console.log(grid);
+      console.log(grid.attr);
       var tmp = iterate(grid, list);
-      console.log(tmp);
       if(tmp) return tmp;
     }
   };

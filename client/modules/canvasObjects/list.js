@@ -1,4 +1,10 @@
 /**
+ * Module dependencies
+ */
+
+var debug = require('debug')('sp:list');
+
+/**
  * Exports
  */
 
@@ -49,8 +55,33 @@ function tilesList(tiles) {
 
   tiles.giveTile = function(offset) {
     offset = offset || 0;
-    var returnValue = this.attr[offset];
-    this.used.push(returnValue);
+    var offsetCounter = 0;
+    var attrIndex = 0;
+    var returnValue;
+
+    while(this.used.length < this.attr.length) {
+
+      // check if element at attrIndex is already in used
+      var overlap = this.used.some(function(elementZero, indexZero) {
+        return elementZero == this.attr[attrIndex].id;
+      }.bind(this));
+
+      // return conditional
+      if(!overlap && offsetCounter >= offset) {
+        this.used.push(attrIndex);
+        returnValue = this.attr[attrIndex];
+        debug('value', returnValue);
+        debug('used', this.used);
+        break;
+      }
+
+      // increment offsetCount
+      if(!overlap && offsetCounter < offset) {
+        offsetCounter++;
+      }
+
+      attrIndex++;
+    }
     return returnValue;
   };
 

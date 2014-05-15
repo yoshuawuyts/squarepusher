@@ -1,4 +1,10 @@
 /**
+ * Module dependencies
+ */
+
+var debug = require('debug')('sp:grid');
+
+/**
  * Exports.
  */
 
