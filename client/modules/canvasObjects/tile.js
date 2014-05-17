@@ -69,23 +69,16 @@ function tilesSurface(tiles) {
 
 function tilesRotate(tiles) {
   tiles.forEach(function(tile) {
-    if(tile.height == tile.width) {
-      tile.square = true;
+    tile.height == tile.width
+      ? tile.square = true
+      : tile.square = false;
 
-    } else {
-      tile.square = false;
-
-      // normal
-      tile.horizontal = function() {
-        return [tile.height, tile.width];
-      };
-
-      // rotate
-      tile.vertical = function() {
-        return [tile.width, tile.height];
-      };
+    if(!tile.square) {
+      tile.horizontal = [tile.height, tile.width];
+      tile.vertical = [tile.width, tile.height];
     }
   });
+  
   return tiles;
 };
 

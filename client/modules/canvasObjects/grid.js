@@ -18,9 +18,8 @@ var grid = Grid.prototype;
 exports = module.exports = Grid;
 
 /**
- * Create a new 'gridObject'.
+ * Create a new 'Grid'.
  *
- * @param {Object} grid
  * @return {Object}
  * @api public
  */

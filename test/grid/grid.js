@@ -6,7 +6,6 @@
  */
 
 var should = require('should');
-var debug = require('debug');
 var Grid = require('../../client/modules/canvasObjects/grid');
 var stubGrid = require('../../.database/grid1.json');
 var stubData = require('../../.database/data1.json');
@@ -25,8 +24,8 @@ describe('#grid()', function () {
     done();
   });
 
-  describe('#.initialize()', function () {
-    it('should initalize an empty array of size n', function (done) {
+  describe('.initialize()', function () {
+    it('should initalize an empty grid of size n', function (done) {
       var grid = Grid();
       grid.initialize({'height': 3, 'width': 3});
       grid.attr.should.eql(stubAttr1);
@@ -34,7 +33,7 @@ describe('#grid()', function () {
     });
   });
 
-  describe('#.add()', function () {
+  describe('.add()', function () {
     it('should add nodes', function (done) {
       var grid = Grid();
       grid.initialize({'height': 3, 'width': 3});

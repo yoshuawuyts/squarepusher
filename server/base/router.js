@@ -27,6 +27,6 @@ module.exports = app;
  * Always return files.
  */
 
-app.use(function *(next) {
+app.use(function *() {
   this.body = React.renderComponentToString(Component({markdown: markdown, data: data, grid: grid}));
 });

@@ -3,111 +3,107 @@
  */
 
 var debug = require('debug')('sp:list');
+var flatten = require('flatten-array');
 
+/**
+ * Grid prototype
+ */
+
+var list = List.prototype;
 /**
  * Exports
  */
 
-module.exports = listObject;
+module.exports = List;
 
 /**
- * Call all other functions
- */
-
-function listObject(tiles) {
-  tiles = tileAttributes(tiles);
-  tiles = tilesList(tiles);
-  tiles = tilesLength(tiles);
-  return tiles;
-};
-
-function tileAttributes(tiles) {
-  var tmp = {};
-  tmp.attr = tiles;
-  tiles = tmp;
-  tiles.used = [];
-  return tiles;
-};
-
-/**
- * Add 'giveTile()' function.
+ * Create a new 'List'.
  *
- * @param {Object} tiles
  * @return {Object}
  * @api public
  */
 
-function tilesList(tiles) {
+function List() {
+  if (!(this instanceof List)) return new List;
+  this.attr = [];
+  this.used = [];
+  return this;
+};
 
-  /**
-   * Return the largest unused value with an offset of n.
-   *
-   *   tiles.attr = [{id: 3, surface: 4}, {id: 9, surface: 6}]
-   *   tiles.giveTile();
-   *   // -> 9
-   *   tiles.giveTile(1);
-   *   // -> 3
-   *
-   * @param {Number} offset
-   * @return {Number}
-   * @api public
-   */
 
-  tiles.giveTile = function(offset) {
-    offset = offset || 0;
-    var offsetCounter = 0;
-    var attrIndex = 0;
-    var returnValue;
+/**
+ * Save an array to list
+ *
+ * @param {Object} values
+ * @api public
+ */
 
-    while(this.used.length < this.attr.length) {
+list.add = function(values) {
+  this.attr = flatten(values);
+};
 
-      // check if element at attrIndex is already in used
-      var overlap = this.used.some(function(elementZero, indexZero) {
-        return elementZero == this.attr[attrIndex].id;
-      }.bind(this));
+/**
+ * Return the largest unused value with an offset of n.
+ *
+ *   tiles.attr = [{id: 3, surface: 4}, {id: 9, surface: 6}]
+ *   tiles.giveTile();
+ *   // -> 9
+ *   tiles.giveTile(1);
+ *   // -> 3
+ *
+ * @param {Number} offset
+ * @return {Number}
+ * @api public
+ */
 
-      // return conditional
-      if(!overlap && offsetCounter >= offset) {
-        this.used.push(attrIndex);
-        returnValue = this.attr[attrIndex];
-        debug('value', returnValue);
-        debug('used', this.used);
-        break;
-      }
+list.giveTile = function(offset) {
+  offset = offset || 0;
+  var offsetCounter = 0;
+  var attrIndex = 0;
+  var returnValue;
 
-      // increment offsetCount
-      if(!overlap && offsetCounter < offset) {
-        offsetCounter++;
-      }
+  while(this.used.length < this.attr.length) {
 
-      attrIndex++;
+    // check if element at attrIndex is already in used
+    var overlap = this.used.some(function(elementZero, indexZero) {
+      return elementZero == this.attr[attrIndex].id;
+    }.bind(this));
+
+    // return conditional
+    if(!overlap && offsetCounter >= offset) {
+      this.used.push(attrIndex);
+      returnValue = this.attr[attrIndex];
+      debug('value', returnValue);
+      debug('used', this.used);
+      break;
     }
-    return returnValue;
-  };
 
-  return tiles;
+    // increment offsetCount
+    if(!overlap && offsetCounter < offset) {
+      offsetCounter++;
+    }
+
+    attrIndex++;
+  }
+  return returnValue;
 };
 
 /**
- * Add 'giveTile()' function.
+ * Return the number of unused tiles.
  *
- * @param {Object} tiles
- * @return {Object}
+ * @return {Number}
  * @api public
  */
 
-function tilesLength(tiles) {
-
-  /**
-   * Return the number of unused tiles.
-   *
-   * @return {Number}
-   * @api public
-   */
-
-  tiles.giveLength = function() {
-    return this.attr.length - this.used.length;
-  };
-
-  return tiles;
+list.giveLength = function() {
+  return this.attr.length - this.used.length;
 };
+
+/**
+ * Calculate and set the surface for each tile;
+ *
+ */
+
+list.applySurface = function() {
+  if (!this.attr) throw new Error('Load a ')
+}
