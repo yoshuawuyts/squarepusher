@@ -6,9 +6,9 @@
  */
 
 var should = require('should');
-var Grid = require('../../client/modules/canvasObjects/grid');
-var stubGrid = require('../../.database/grid1.json');
-var stubData = require('../../.database/data1.json');
+var Grid = require('../../client/modules/grid/grid');
+var stubGrid = require('../../data/grid1.json');
+var stubData = require('../../data/data1.json');
 var stubAttr1 = require('./attr1.json');
 var stubAttr2 = require('./attr2.json');
 var stubAttr3 = require('./attr3.json');

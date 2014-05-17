@@ -2,9 +2,8 @@
  * Module dependencies
  */
 
-var markdownComponent = require('./modules/markdown');
-var canvasComponent = require('./modules/canvas');
-var tilesComponent = require('./modules/tiles');
+var markdownComponent = require('../sidebar/sidebar');
+var canvasComponent = require('../canvas/canvas');
 var React = require('react');
 
 /**
@@ -37,8 +36,7 @@ module.exports = React.createClass({
       ),
       React.DOM.body(null, 
         canvasComponent({data: this.props.data, grid: this.props.grid}),
-        markdownComponent({markdown: this.props.markdown}),
-        tilesComponent()
+        markdownComponent({markdown: this.props.markdown})
       )
     )
   }

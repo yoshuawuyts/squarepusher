@@ -5,7 +5,7 @@
 var path = require('path');
 var fs = require('fs');
 
-var filePath = path.join(__dirname + '../../../client/markdown/' + 'project.md');
+var filePath = path.join(__dirname + '../../../data/' + 'description.md');
 
 /**
  * Read file from disk

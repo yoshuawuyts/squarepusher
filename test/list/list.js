@@ -6,7 +6,7 @@
  */
 
 var should = require('should');
-var List = require('../../client/modules/canvasObjects/list');
+var List = require('../../client/modules/list/list');
 
 /**
  * Test

@@ -2,7 +2,7 @@
   "name": "squarePusher",
   "version": "0.0.0",
   "description": "Load a set of elements into a grid",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha --recursive --harmony-generators -R spec",
     "start": "node --harmony-generators server/index.js"

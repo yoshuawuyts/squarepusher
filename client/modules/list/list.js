@@ -30,7 +30,6 @@ function List() {
   return this;
 };
 
-
 /**
  * Save an array to list
  *
