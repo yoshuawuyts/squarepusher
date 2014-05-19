@@ -11,7 +11,9 @@ var React = require('react');
  */
 
 var PORT = process.env.port || 1337;
-var host = process.env.NODE_ENV == 'production' ? 'mywebsite.com' : 'localhost:' + PORT;
+var host = 'production' == process.env.NODE_ENV
+  ? 'mywebsite.com' 
+  : 'localhost:' + PORT;
 
 /**
  * Define React class.

@@ -21,21 +21,19 @@ module.exports = iterate;
  */
 
 function iterate(grid, list) {
-  for(var i = 0, j = list.giveLength(); i <= j; i++) {
-    debug(j,i);
-    //console('tile', list.giveTile(i))
-
-    // if the last option from the loop returns fails, it means all our options
-    // are exhausted, thus return false.
-    if(grid.add(list.giveTile(i)) == false && i == j) {
+  for(var i = 0, j = list.length(); i <= j; i++) {
+    var tile = list.giveTile(i);
+    var gridIsFatter = grid.add(tile);
+    
+    //console.log(gridIsFatter)
+    if(!gridIsFatter && i == j) {
       return false;
     }
 
     // if option n returns true, call iterate again.
-    if(grid.add(list.giveTile(i))) {
-      console.log(grid.attr);
-      var tmp = iterate(grid, list);
-      if(tmp) return tmp;
+    if(gridIsFatter) {
+      var answer = iterate(grid, list);
+      if(answer) return answer;
     }
   };
 };

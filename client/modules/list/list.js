@@ -31,6 +31,20 @@ function List() {
 };
 
 /**
+ * Initialize all objects
+ */
+
+list.initialize = function(data) {
+  this.add(data);
+  this.applySurface();
+  this.applyRotation();
+  this.sort();
+  this.applyId();
+  return this;
+}
+
+
+/**
  * Save an array to list
  *
  * @param {Object} values
@@ -42,67 +56,109 @@ list.add = function(values) {
 };
 
 /**
- * Return the largest unused value with an offset of n.
- *
- *   tiles.attr = [{id: 3, surface: 4}, {id: 9, surface: 6}]
- *   tiles.giveTile();
- *   // -> 9
- *   tiles.giveTile(1);
- *   // -> 3
+ * Return a tile from the list at position 'offset'.
  *
  * @param {Number} offset
- * @return {Number}
+ * @return {Object}
  * @api public
  */
 
 list.giveTile = function(offset) {
-  offset = offset || 0;
-  var offsetCounter = 0;
-  var attrIndex = 0;
-  var returnValue;
+  if (undefined == offset) throw new Error('Provide an offset for \'giveTile\'');
+  var id = this.attr[offset].id;
 
-  while(this.used.length < this.attr.length) {
+  // check if element at attrIndex is already in use
+  var used = this.used.some(function(elementZero, indexZero) {
+    return elementZero == id;
+  }.bind(this));
 
-    // check if element at attrIndex is already in used
-    var overlap = this.used.some(function(elementZero, indexZero) {
-      return elementZero == this.attr[attrIndex].id;
-    }.bind(this));
-
-    // return conditional
-    if(!overlap && offsetCounter >= offset) {
-      this.used.push(attrIndex);
-      returnValue = this.attr[attrIndex];
-      debug('value', returnValue);
-      debug('used', this.used);
-      break;
-    }
-
-    // increment offsetCount
-    if(!overlap && offsetCounter < offset) {
-      offsetCounter++;
-    }
-
-    attrIndex++;
+  // return conditional
+  if(!used) {
+    this.used.push(id);
+    return this.attr[offset];
   }
-  return returnValue;
+
+  return false;
 };
 
 /**
- * Return the number of unused tiles.
+ * Return the length of the tiles.
  *
  * @return {Number}
  * @api public
  */
 
-list.giveLength = function() {
-  return this.attr.length - this.used.length;
+list.length = function() {
+  return this.attr.length;
+};
+
+/**
+ * Add an id to each tile.
+ *
+ * @api public
+ */
+
+list.applyId = function() {
+  if (!this.attr) throw new Error('Load tiles first')
+  this.attr.forEach(function(tile, index) {
+    tile.id = index;
+  });
 };
 
 /**
  * Calculate and set the surface for each tile;
  *
+ * @api public
  */
 
 list.applySurface = function() {
-  if (!this.attr) throw new Error('Load a ')
+  if (!this.attr) throw new Error('Load tiles first');
+  this.attr.forEach(function(tile) {
+    tile.surface = tile.height * tile.width;
+  });
 }
+
+/**
+ * Set 'tile.horizontal' and 'tile.vertical' functions.
+ * Set 'tile.square' to Boolean.
+ *
+ * @api private
+ */
+
+list.applyRotation = function () {
+  this.attr.forEach(function(tile) {
+    tile.height == tile.width
+      ? tile.square = true
+      : tile.square = false;
+
+    if(!tile.square) {
+      tile.horizontal = [tile.height, tile.width];
+      tile.vertical = [tile.width, tile.height];
+    }
+  });
+};
+
+/**
+ * Sort elements by surface
+ *
+ * @param {Object[]} tiles
+ * @return {Object}
+ * @api private
+ */
+
+list.sort = function () {
+  this.attr.sort(function(a, b) {
+    if(a.surface < b.surface) return -1;
+    if(a.surface > b.surface) return 1;
+
+    // if equal surface, determine order by height.
+    if(a.height < b.height) return -1;
+    if(a.height > b.height) return 1;
+
+    // if equal surface and equal height, determine order by width.
+    if(a.width < b.width) return -1;
+    if(a.width > b.width) return 1;
+
+    return 0;
+  });
+};

@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "test": "NODE_ENV=test ./node_modules/mocha/bin/mocha --recursive --harmony-generators -R spec",
-    "start": "node --harmony-generators server/index.js"
+    "start": "node --harmony-generators server/logger.js"
   },
   "repository": {
     "type": "git",

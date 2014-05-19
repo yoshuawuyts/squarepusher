@@ -63,14 +63,14 @@ grid.initialize = function(grid) {
 
 grid.add = function(tile) {
   var coordinates = {};
-  var correct = true;
   var found = false;
-  // Read values from grid until an empty space is found.
-  for(var i = 0, j = this.height - 1; i < j; i++) {
-    for(var k = 0, l = this.width - 1; k < l; k++) {
+  
+  // read values from grid until an empty space is found.
+  for(var i = 0, j = this.height; i < j; i++) {
+    for(var k = 0, l = this.width; k < l; k++) {
       if (this.attr[i][k] == -1) {
-        coordinates.y = i;
         coordinates.x = k;
+        coordinates.y = i;
         found = true;
       }
       if(found) break;
@@ -78,23 +78,19 @@ grid.add = function(tile) {
     if(found) break;
   }
 
-  // Check if 'tile' fits into the empty space without going outside the grid.
+  // check if 'tile' fits into the empty space without going outside the grid.
   if ((this.height - coordinates.y - tile.height) < 0) return false;
   if ((this.width - coordinates.x - tile.width) < 0) return false;
   
-  // Fill empty space with 'tile', if it encounters filled space > exit.
+  // fill empty space with 'tile', if it encounters filled space > exit.
   for(var i = coordinates.y, j = tile.height + i; i < j; i++) {
     for(var k = coordinates.x, l = tile.width + k; k < l; k++) {
-      if (this.attr[i][k] != -1) {
-        correct = false;
-        break;
-      }
-      if (false != correct) this.attr[i][k] = tile.id;
+      
+      // check if value is empty
+      if (-1 != this.attr[i][k]) return false;
+      this.attr[i][k] = tile.id;
     }
-    if(false == correct) break;
   }
 
-  // return
-  if (false == correct) return false;
   return this;
 };
