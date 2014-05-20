@@ -12,7 +12,6 @@ var stubData = require('../../data/data1.json');
 var stubAttr1 = require('./attr1.json');
 var stubAttr2 = require('./attr2.json');
 var stubAttr3 = require('./attr3.json');
-var stubAttr4 = require('./attr4.json');
 
 /**
  * Test
@@ -73,7 +72,7 @@ describe('#grid()', function () {
         .add({'height': 1, 'width': 1, 'id': 1})
         .add({'height': 1, 'width': 1, 'id': 2})
         .add({'height': 1, 'width': 1, 'id': 3})
-        .attr.should.eql(stubAttr4);
+        .attr.should.eql([[0, 1], [2, 3]]);
       done();
     });
 
@@ -85,7 +84,22 @@ describe('#grid()', function () {
         .add({'height': 1, 'width': 1, 'id': 1})
         .add({'height': 1, 'width': 1, 'id': 2})
         .add({'height': 1, 'width': 1, 'id': 3})
-        .attr.should.eql(stubAttr4);
+        .attr.should.eql([[0, 1], [2, 3]]);
+      done();
+    });
+
+    it('should not save the write if tile is false', function(done) {
+      var grid = Grid();
+      grid.initialize({'height': 2, 'width': 2})
+        .add({'height': 1, 'width': 1, 'id': 0})
+        .add({'height': 2, 'width': 1, 'id': 1})
+        .add({'height': 1, 'width': 2, 'id': 2})
+        .should.eql.false;
+
+      grid
+        .add({'height': 1, 'width': 1, 'id': 3})
+        .attr.should.eql([[0, 1], [3, 1]]);
+
       done();
     });
   });

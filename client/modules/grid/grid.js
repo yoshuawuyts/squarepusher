@@ -64,11 +64,17 @@ grid.initialize = function(grid) {
 grid.add = function(tile) {
   var coordinates = {};
   var found = false;
-  
+  var tmp = [];
+
+  // make a reference free copy of original attributes
+  this.attr.forEach(function(elZero, indexZero) {
+    tmp[indexZero] = elZero.slice(0);
+  });
+
   // read values from grid until an empty space is found.
   for(var i = 0, j = this.height; i < j; i++) {
     for(var k = 0, l = this.width; k < l; k++) {
-      if (this.attr[i][k] == -1) {
+      if (tmp[i][k] == -1) {
         coordinates.x = k;
         coordinates.y = i;
         found = true;
@@ -87,10 +93,12 @@ grid.add = function(tile) {
     for(var k = coordinates.x, l = tile.width + k; k < l; k++) {
       
       // check if value is empty
-      if (-1 != this.attr[i][k]) return false;
-      this.attr[i][k] = tile.id;
+      if (-1 != tmp[i][k]) return false;
+      tmp[i][k] = tile.id;
     }
   }
 
+  // save back to origin && return;
+  this.attr = tmp;
   return this;
 };
