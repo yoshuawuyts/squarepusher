@@ -74,11 +74,21 @@ list.giveTile = function(offset) {
 
   // return conditional
   if(!used) {
-    this.used.push(id);
     return this.attr[offset];
   }
 
   return false;
+};
+
+/**
+ * Set a tile at offset n to used
+ *
+ * @param {Number} offset
+ * @api public
+ */
+
+list.setUsed = function(offset) {
+  this.used.push(this.attr[offset].id);
 };
 
 /**
@@ -148,16 +158,16 @@ list.applyRotation = function () {
 
 list.sort = function () {
   this.attr.sort(function(a, b) {
-    if(a.surface < b.surface) return -1;
-    if(a.surface > b.surface) return 1;
+    if(a.surface > b.surface) return -1;
+    if(a.surface < b.surface) return 1;
 
     // if equal surface, determine order by height.
-    if(a.height < b.height) return -1;
-    if(a.height > b.height) return 1;
+    if(a.height > b.height) return -1;
+    if(a.height < b.height) return 1;
 
     // if equal surface and equal height, determine order by width.
-    if(a.width < b.width) return -1;
-    if(a.width > b.width) return 1;
+    if(a.width > b.width) return -1;
+    if(a.width < b.width) return 1;
 
     return 0;
   });

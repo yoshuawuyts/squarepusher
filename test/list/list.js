@@ -94,13 +94,13 @@ describe('#list()', function () {
     it('should sort arrays from large to small', function (done) {
       var list = List();
       list.add([
-        {"height": 3, "width": 3}, 
-        {"height": 2, "width": 2}
+        {"height": 2, "width": 2},
+        {"height": 3, "width": 3} 
       ]);
       list.sort();
       list.attr.should.eql([
-        {"height": 2, "width": 2}, 
-        {"height": 3, "width": 3}
+        {"height": 3, "width": 3},
+        {"height": 2, "width": 2} 
       ]);
       done();
     });
@@ -125,7 +125,6 @@ describe('#list()', function () {
         {"height": 2, "width": 2, "id": 1}
       ]);
       list.giveTile(0).should.eql({"height": 3, "width": 3, "id": 0});
-      list.used.should.eql([0]);
       done();
     });
 
@@ -138,8 +137,23 @@ describe('#list()', function () {
       ]);
       list.giveTile(1).should.eql({"height": 3, "width": 3, "id": 1});
       list.giveTile(2).should.eql({"height": 2, "width": 2, "id": 2});
+      list.used = [1, 2];
       list.giveTile(2).should.eql(false);
-      list.used.should.eql([1, 2]);
+      done();
+    });
+  });
+
+  describe('.setUsed()', function () {
+    it('should add a tile to the used list', function (done) {
+      var list = List();
+      list.add([
+        {"height": 3, "width": 3, "id": 0}, 
+        {"height": 3, "width": 3, "id": 1}, 
+        {"height": 2, "width": 2, "id": 2}
+      ]);
+      
+      list.setUsed(1);
+      list.used.should.eql([1]);
       done();
     });
   });
