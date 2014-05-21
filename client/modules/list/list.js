@@ -37,7 +37,7 @@ function List() {
 list.initialize = function(data) {
   this.add(data);
   this.applySurface();
-  this.applyRotation();
+  this.checkSquared();
   this.sort();
   this.applyId();
   return this;
@@ -73,6 +73,21 @@ list.giveTile = function(offset) {
 
   if(!used) return this.attr[offset];
   return false;
+};
+
+/**
+ * Rotate a tile
+ *
+ * @param {Object} tile
+ * return {Object}
+ * @api public
+ */
+
+list.rotateTile = function(tile) {
+  var tmp = tile.height;
+  tile.height = tile.width;
+  tile.width = tmp;
+  return tile;
 };
 
 /**
@@ -118,22 +133,16 @@ list.applySurface = function() {
 }
 
 /**
- * Set 'tile.horizontal' and 'tile.vertical' functions.
- * Set 'tile.square' to Boolean.
+ * Check if a tile is squared or not
  *
  * @api private
  */
 
-list.applyRotation = function () {
+list.checkSquared = function () {
   this.attr.forEach(function(tile) {
     tile.height == tile.width
       ? tile.square = true
       : tile.square = false;
-
-    if(!tile.square) {
-      tile.horizontal = [tile.height, tile.width];
-      tile.vertical = [tile.width, tile.height];
-    }
   });
 };
 

@@ -62,11 +62,11 @@ describe('#list()', function () {
     });
   });
 
-  describe('.applyRotation()', function () {
+  describe('.checkSquared()', function () {
     it('should set \'square\' true on square tiles', function (done) {
       var list = List();
       list.add([{"height": 2, "width": 2}]);
-      list.applyRotation();
+      list.checkSquared();
       list.attr.should.eql([{"height": 2, "width": 2, "square": true}]);
       done();
     });
@@ -74,18 +74,17 @@ describe('#list()', function () {
     it('should set \'square\' false on non square tiles', function (done) {
       var list = List();
       list.add([{"height": 2, "width": 3}]);
-      list.applyRotation();
+      list.checkSquared();
       list.attr.should.containDeep([{"height": 2, "width": 3, "square": false}]);
       done();
     });
+  });
 
-    it('should calc and set the horizontal & vertical values on each tile', function (done) {
-      var list = List();
-      list.add([{"height": 2, "width": 3}]);
-      list.applyRotation();
-      list.attr.should.containDeep([
-        {"height": 2, "width": 3, "horizontal": [2, 3], "vertical": [3, 2]}
-      ]);
+  describe('.rotateTile()', function () {
+    it('should rotate a tile', function (done) {
+      List()
+        .rotateTile({'height': 4, 'width': 3})
+        .should.eql({'height': 3, 'width': 4})
       done();
     });
   });
