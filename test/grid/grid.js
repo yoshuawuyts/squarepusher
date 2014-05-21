@@ -37,11 +37,11 @@ describe('#grid()', function () {
     it('should add nodes', function (done) {
       var grid = Grid();
       grid.initialize({'height': 3, 'width': 3});
-      grid.add({'height': 1, 'width': 1, 'id': 0});
-      grid.attr.should.eql(stubAttr2);
+      var tmp = grid.add({'height': 1, 'width': 1, 'id': 0});
+      tmp.attr.should.eql(stubAttr2);
 
-      grid.add({'height': 2, 'width': 2, 'id': 1});
-      grid.attr.should.eql(stubAttr3);
+      var tmp2 = tmp.add({'height': 2, 'width': 2, 'id': 1});
+      tmp2.attr.should.eql(stubAttr3);
       done();
     });
 
@@ -55,8 +55,7 @@ describe('#grid()', function () {
     });
 
     it('should not add a node if it overlaps with the previous row', function (done) {
-      var grid = Grid();
-      grid
+      Grid()
         .initialize({'height': 3, 'width': 3})
         .add({'height': 1, 'width': 1, 'id': 0})
         .add({'height': 2, 'width': 2, 'id': 1})
@@ -77,9 +76,8 @@ describe('#grid()', function () {
     });
 
     it('should be able to fill a grid', function(done) {
-      var grid = Grid();
-      grid.initialize({'height': 2, 'width': 2});
-      var x = grid
+      Grid()
+        .initialize({'height': 2, 'width': 2})
         .add({'height': 1, 'width': 1, 'id': 0})
         .add({'height': 1, 'width': 1, 'id': 1})
         .add({'height': 1, 'width': 1, 'id': 2})
@@ -91,12 +89,16 @@ describe('#grid()', function () {
     it('should not save the write if tile is false', function(done) {
       var grid = Grid();
       grid.initialize({'height': 2, 'width': 2})
+      
+      var tmp = grid
         .add({'height': 1, 'width': 1, 'id': 0})
         .add({'height': 2, 'width': 1, 'id': 1})
+
+      tmp
         .add({'height': 1, 'width': 2, 'id': 2})
         .should.eql.false;
 
-      grid
+      tmp
         .add({'height': 1, 'width': 1, 'id': 3})
         .attr.should.eql([[0, 1], [3, 1]]);
 

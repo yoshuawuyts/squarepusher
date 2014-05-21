@@ -144,7 +144,7 @@ describe('#list()', function () {
   });
 
   describe('.setUsed()', function () {
-    it('should add a tile to the used list', function (done) {
+    it('should add a tile to a new used list', function (done) {
       var list = List();
       list.add([
         {"height": 3, "width": 3, "id": 0}, 
@@ -152,21 +152,10 @@ describe('#list()', function () {
         {"height": 2, "width": 2, "id": 2}
       ]);
       
-      list.setUsed(1);
-      list.used.should.eql([1]);
-      done();
-    });
-  });
+      var list2 = list.setUsed(1);
+      list.used.should.be.empty;
 
-  describe('.length()', function () {
-    it('should return the length of the \'attr\' value', function (done) {
-      var list = List();
-      list.add([
-        {"height": 3, "width": 3, "id": 0}, 
-        {"height": 3, "width": 3, "id": 1}, 
-        {"height": 2, "width": 2, "id": 2}
-      ]);
-      list.length().should.eql(3);
+      list2.used.should.eql([1]);
       done();
     });
   });

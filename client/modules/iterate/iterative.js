@@ -19,27 +19,31 @@ module.exports = iterate;
  * @return {Object}
  * @api public
  */
+    
+    /*
+    console.log(tile)
+    console.log('\n\n')
+    console.log('depth', depth, '\n', 'posi', i, '\n')
+    console.log(grid.attr)
+    console.log('used', list.used);
+    console.log('\n\n')
+    */
+    // depth = depth || 0;
 
 function iterate(grid, list) {
-  for(var i = 0, j = list.length() - 1; i <= j; i++) {
-    /*
-    */
-    console.log(i, j)
-    console.log(grid)
-    console.log('\n\n')
-    console.log(list.used)
 
+  for(var i = 0, j = list.attr.length - 1; i <= j; i++) {
     var tile = list.giveTile(i);
-    console.log(tile)
+
     if (!tile) continue;
 
     var newGrid = grid.add(tile);
     if(!newGrid) continue;
-    if(i == j) return newGrid;
 
-    // if option n returns true, add tile to 'used' and call iterate again.
-    list.setUsed(i);
-    var answer = iterate(newGrid, list);
+    var newList = list.setUsed(i);
+    if(newList.used.length == j + 1) return newGrid;
+
+    var answer = iterate(newGrid, newList);
     if(answer) return answer;
   };
 };

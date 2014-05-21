@@ -10,6 +10,7 @@ var flatten = require('flatten-array');
  */
 
 var list = List.prototype;
+
 /**
  * Exports
  */
@@ -27,7 +28,6 @@ function List() {
   if (!(this instanceof List)) return new List;
   this.attr = [];
   this.used = [];
-  return this;
 };
 
 /**
@@ -42,7 +42,6 @@ list.initialize = function(data) {
   this.applyId();
   return this;
 }
-
 
 /**
  * Save an array to list
@@ -72,11 +71,7 @@ list.giveTile = function(offset) {
     return elementZero == id;
   }.bind(this));
 
-  // return conditional
-  if(!used) {
-    return this.attr[offset];
-  }
-
+  if(!used) return this.attr[offset];
   return false;
 };
 
@@ -84,22 +79,16 @@ list.giveTile = function(offset) {
  * Set a tile at offset n to used
  *
  * @param {Number} offset
+ * @return {Object}
  * @api public
  */
 
 list.setUsed = function(offset) {
-  this.used.push(this.attr[offset].id);
-};
-
-/**
- * Return the length of the tiles.
- *
- * @return {Number}
- * @api public
- */
-
-list.length = function() {
-  return this.attr.length;
+  var tmp = Object.create(this);
+  tmp.used = this.used.slice(0);
+  tmp.attr = this.attr.slice(0);
+  tmp.used.push(tmp.attr[offset].id);
+  return tmp;
 };
 
 /**

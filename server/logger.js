@@ -15,8 +15,8 @@ var gridData = require('../data/grid1.json');
 
 list = list().initialize(tileData);
 grid = grid().initialize(gridData);
-console.log('list at stage 0', list);
-console.log('grid at stage 0', grid);
+//console.log('list at stage 0', list);
+//console.log('grid at stage 0', grid);
 
 /**
  * Find solution
