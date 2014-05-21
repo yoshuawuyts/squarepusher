@@ -41,6 +41,22 @@ describe('#iterate()', function () {
   });
 
   it('should be able to rotate tiles to fill a grid', function (done) {
+
+    var grid2 = grid().initialize({'height': 4, 'width': 4});
+    var list2 = list().initialize([
+      {'height': 3, 'width': 2},
+      {'height': 3, 'width': 2},
+      {'height': 4, 'width': 1},
+    ]);
+
+    var result = iterate(grid2, list2);
+    result.attr.should.containDeep([
+      [0, 0, 1, 1],
+      [0, 0, 1, 1],
+      [0, 0, 1, 1],
+      [2, 2, 2, 2]
+    ]);
+    
     done();
   });
 });
