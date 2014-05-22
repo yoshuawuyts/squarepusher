@@ -19,16 +19,6 @@ module.exports = iterate;
  * @return {Object}
  * @api public
  */
-    
-    /*
-    console.log(tile)
-    console.log('\n\n')
-    console.log('depth', depth, '\n', 'posi', i, '\n')
-    console.log(grid.attr)
-    console.log('used', list.used);
-    console.log('\n\n')
-    */
-    // depth = depth || 0;
 
 function iterate(grid, list) {
 
